@@ -23,7 +23,7 @@ const displayPhrases = arr => {
         listPhrase.className = 'letter'
         ulPhrase.appendChild(listPhrase);
         
-        console.log(listPhrase.textContent)
+        return listPhrase.textContent;
     } 
 }
 const displayPhrase = displayPhrases(randomLetter);
