@@ -3,9 +3,6 @@ const phrase = document.querySelector('#phrase');
 const btnReset = document.querySelector('.btn__reset');
 const missed = 0;
 const phrases = ['JAVASCRIPT','FUNCTION','OBJECT','ARRAY','LOOP'];
-const buttons = Array.from(document.querySelectorAll('.keyrow button'))
-const b = buttons.map(button => button.textContent.toUpperCase())
-
 
 // return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
@@ -34,7 +31,8 @@ let listPhrase = lists.map(list => list.textContent)
 const checkLetter = button => {
     const li = document.querySelectorAll('.letter');
     for (let value of li) {
-        if(button.includes(value.textContent.toUpperCase()))
+        const valueOfLi = value.textContent.toUpperCase()
+        if(button.includes(valueOfLi))
             value.classList.add('show');
     }
 };
@@ -54,11 +52,12 @@ btnReset.addEventListener('click',() => {
 
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
-    const button = e.target
+    const button = e.target;
     if(button.tagName === 'BUTTON'){
-      if(listPhrase.includes(button.textContent.toUpperCase())) {
+      const selection = button.textContent.toUpperCase();
+      if(listPhrase.includes(selection)) {
         button.className = 'chosen';
-        checkLetter(b);
+        checkLetter(selection);
       };
     }
 });
