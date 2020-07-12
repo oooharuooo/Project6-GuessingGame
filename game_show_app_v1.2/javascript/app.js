@@ -44,13 +44,13 @@ const checkWin = () => {
 
 };
 
-const display = document.querySelector('#overlay');
-display.style.display = 'none';
+
 
 // listen for the start game button to be pressed
-// btnReset.addEventListener('click',() => {
-   
-// })
+btnReset.addEventListener('click',() => {
+    const display = document.querySelector('#overlay');
+    display.style.display = 'none';
+})
 
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
