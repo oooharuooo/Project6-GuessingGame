@@ -4,13 +4,11 @@ const btnReset = document.querySelector('.btn__reset');
 const ol = document.querySelector('#scoreboard ol');
 const h1 = document.createElement('h1');
 const phrases = [
-    'I CAN AND I WILL',
-    'PROVE THEM WRONG',
-    'GOOD THINGS TAKE TIME',
-    'ENJOY EVERY MOMENT',
-    'LIFE IS A STORY',
-    'FOCUS ON THE GOOD',
-    'TURN THE PAIN INTO POWER'
+    'JAVASCRIPT IS FUN',
+    'LOOP IS FUN',
+    'OBJECT IS FUN',
+    'ARRAY IS FUN',
+    'CODING IS NOT FUN',
 ];
 
 
