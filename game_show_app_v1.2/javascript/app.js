@@ -1,8 +1,18 @@
 const qwerty = document.querySelector('#qwerty');
-const phrase = document.querySelector('#phrase');
+const display = document.querySelector('#overlay');
 const btnReset = document.querySelector('.btn__reset');
-const missed = 0;
-const phrases = ['JAVASCRIPT','FUNCTION','OBJECT','ARRAY','LOOP'];
+const ol = document.querySelector('#scoreboard ol');
+const h1 = document.createElement('h1');
+const phrases = [
+    'I CAN AND I WILL',
+    'PROVE THEM WRONG',
+    'GOOD THINGS TAKE TIME',
+    'ENJOY EVERY MOMENT',
+    'LIFE IS A STORY',
+    'FOCUS ON THE GOOD',
+    'TURN THE PAIN INTO POWER'
+];
+
 
 // return a random phrase from an array
 const getRandomPhraseAsArray = arr => {
@@ -18,13 +28,16 @@ const displayPhrases = arr => {
         const listPhrase = document.createElement('li');
         listPhrase.textContent = value;
         listPhrase.className = 'letter';
+    //White Space Remove
+        listPhrase.textContent === ' ' ? listPhrase.className = 'space': null;
+    // Append list    
         ulPhrase.appendChild(listPhrase);
     } 
-    return ulPhrase.children
+    return ulPhrase.children;
 }
 const displayPhrase = displayPhrases(randomLetter);
-const lists = Array.from(displayPhrase)
-let listPhrase = lists.map(list => list.textContent)
+const lists = Array.from(displayPhrase);
+let listPhrase = lists.map(list => list.textContent);
 
 
 // check if a letter is in the Phrase
@@ -37,27 +50,58 @@ const checkLetter = button => {
     }
 };
 
+const liLetter = document.querySelectorAll('.letter')
 // check if the game has been won or lost
 const checkWin = () => {
-
+    const liShow = document.querySelectorAll('.show')
+    //When player lose the Game
+        if(!ol.childElementCount) {
+            WinOrLose('lose','You Lose!');
+        }   
+    //When player win the Game
+        else if(liLetter.length === liShow.length) {
+            WinOrLose('win','You Win!');
+        }
 };
 
 
-
 // listen for the start game button to be pressed
-btnReset.addEventListener('click',() => {
-    const display = document.querySelector('#overlay');
+btnReset.addEventListener('click',(e) => {
     display.style.display = 'none';
+    // Play Again Button
+    e.target.textContent === 'Click Here to Play Again?' ? location.reload() : null; 
 })
 
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
     const button = e.target;
+    button.disabled = true;
     if(button.tagName === 'BUTTON'){
       const selection = button.textContent.toUpperCase();
+      //The correct button
       if(listPhrase.includes(selection)) {
         button.className = 'chosen';
         checkLetter(selection);
+    // Add Shaking transition to the answer
+         const liShow = document.querySelectorAll('.show')
+         for (let value of liShow) {
+                value.classList.add('shaking')
+         }
+        checkWin();  
+      }//The Wrong button
+      else {
+          button.className = 'lose';
+          ol.lastElementChild.remove();
+          checkWin()
       };
     }
 });
+
+//Refactoring Game Condition
+const WinOrLose = (condition,textCondition) => {
+    display.style.display = '';
+    display.className = condition;
+    btnReset.textContent = 'Click Here to Play Again?';
+    h1.textContent = textCondition;
+    display.appendChild(h1);
+}
